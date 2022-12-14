@@ -25,9 +25,12 @@ public class Loader {
     public RawModel loadToVAO(float[] positions, float[] textureCoords, int[] indices) {
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
+        // Store geometry vertices data into the VAO on ID 0.
         storeDataInAttributeList(0, 3, positions);
+        // Similarly, with texture UV coordinates.
         storeDataInAttributeList(1, 2, textureCoords);
         unbindVAO();
+
         return new RawModel(vaoID, indices.length);
     }
 
@@ -58,18 +61,19 @@ public class Loader {
         return vaoID;
     }
 
+    private void unbindVAO() {
+        GL30.glBindVertexArray(0);
+    }
+
     private void storeDataInAttributeList(int attributeNumber, int coordinateSize, float[] data) {
         int vboID = GL15.glGenBuffers();
         vbos.add(vboID);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboID);
         FloatBuffer buffer = storeDataInFloatBuffer(data);
+        // Do not edit the data once stored in the VBOs.
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_STATIC_READ);
         GL20.glVertexAttribPointer(attributeNumber, coordinateSize, GL11.GL_FLOAT, false, 0, 0);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-    }
-
-    private void unbindVAO() {
-        GL30.glBindVertexArray(0);
     }
 
     private void bindIndicesBuffer(int[] indices) {

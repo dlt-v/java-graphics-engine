@@ -5,6 +5,8 @@ import org.lwjgl.opengl.*;
 
 
 public class DisplayManager {
+
+    // Set size and FPS of the display window.
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
     private static final int FPS_CAP = 120;
@@ -12,6 +14,7 @@ public class DisplayManager {
 
     public static void createDisplay() {
 
+        // Set the version of the OpenGL version.
         ContextAttribs attribs = new ContextAttribs(3, 2).withForwardCompatible(true).withProfileCore(true);
 
         try {

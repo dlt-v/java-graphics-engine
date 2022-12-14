@@ -51,6 +51,7 @@ public class MainGameLoop {
             //render
             DisplayManager.updateDisplay();
         }
+
         shader.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
