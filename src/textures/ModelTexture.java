@@ -3,7 +3,7 @@ package textures;
 public class ModelTexture {
     private int textureId;
 
-    private float shineDamper = 1;
+    private float shineDamper = .3f;
     private float reflectivity = 0;
 
     public float getShineDamper() {
