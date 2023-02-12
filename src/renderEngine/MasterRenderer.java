@@ -20,6 +20,9 @@ public class MasterRenderer {
     private static final float FOV = 70;
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 1000f;
+    private static final float RED = 0.5f;
+    private static final float GREEN = 0.5f;
+    private static final float BLUE = 0.5f;
 
     private Matrix4f projectionMatrix;
 
@@ -52,6 +55,7 @@ public class MasterRenderer {
     public void render(Light sun, Camera camera) {
         prepare();
         shader.start();
+        shader.loadSkyColor(RED, GREEN, BLUE);
         shader.loadLight(sun);
         shader.loadViewMatrix(camera);
 
@@ -59,6 +63,8 @@ public class MasterRenderer {
 
         shader.stop();
         terrainShader.start();
+        terrainShader.loadSkyColor(RED, GREEN, BLUE);
+
         terrainShader.loadLight(sun);
         terrainShader.loadViewMatrix(camera);
         terrainRenderer.render(terrains);
@@ -86,7 +92,7 @@ public class MasterRenderer {
     public void prepare() {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-        GL11.glClearColor(.9f, .9f, .9f, 1); // background color
+        GL11.glClearColor(RED, GREEN, BLUE, 1); // background color
 
     }
 

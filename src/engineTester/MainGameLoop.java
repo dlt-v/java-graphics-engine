@@ -29,7 +29,7 @@ public class MainGameLoop {
         ModelTexture texture = new ModelTexture(loader.loadTexture("Tree"));
         TexturedModel staticModel = new TexturedModel(model, texture);
         texture.setShineDamper(10);
-        texture.setReflectivity(1);
+        texture.setReflectivity(0);
         //TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("white")));
 
 //        staticModel.getTexture().setHasTransparency(true);
