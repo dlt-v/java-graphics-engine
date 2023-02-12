@@ -64,7 +64,7 @@ public class MainGameLoop {
         ModelTexture playerTexture = new ModelTexture(loader.loadTexture("white"));
         TexturedModel playerTexturedModel = new TexturedModel(playerModel, playerTexture);
 
-        Player player = new Player(playerTexturedModel, new Vector3f(1, 1, 0), 0, 0, 0, 2);
+        Player player = new Player(playerTexturedModel, new Vector3f(1, 1, 0), 0, 0, 0, 20);
 
 
         //TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("white")));
@@ -78,7 +78,7 @@ public class MainGameLoop {
 
 
 
-        Camera camera = new Camera();
+        Camera camera = new Camera(player);
 
         MasterRenderer renderer = new MasterRenderer();
 
