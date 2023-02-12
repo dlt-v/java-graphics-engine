@@ -31,6 +31,9 @@ public class MainGameLoop {
         texture.setShineDamper(10);
         texture.setReflectivity(1);
         //TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("white")));
+
+//        staticModel.getTexture().setHasTransparency(true);
+//        staticModel.getTexture().setUseFakeLighting(true);
         List<Entity> trees = new ArrayList<>();
         Random random = new Random();
 
