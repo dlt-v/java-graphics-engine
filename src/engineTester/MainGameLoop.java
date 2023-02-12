@@ -11,6 +11,8 @@ import models.RawModel;
 import shaders.StaticShader;
 import terrains.Terrain;
 import textures.ModelTexture;
+import textures.TerrainTexture;
+import textures.TerrainTexturePack;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +25,16 @@ public class MainGameLoop {
         DisplayManager.createDisplay();
 
         Loader loader = new Loader();
+
+        // TERRAIN TEXTURE LOADING
+
+        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grass"));
+        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("grassFlowers"));
+        TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("mud"));
+        TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("path"));
+
+        TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
+        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
 
         RawModel model = OBJLoader.loadObjModel("tree", loader);
 
@@ -38,16 +50,16 @@ public class MainGameLoop {
         Random random = new Random();
 
         for (int i = 0; i < 200; i++) { // Tree generation
-            float x = random.nextFloat() * 100;
-            float z = random.nextFloat() * 100;
-            trees.add(new Entity(staticModel, new Vector3f(x, 0, z), 0, 0, 0, 1));
+            float x = random.nextFloat() * 300;
+            float z = random.nextFloat() * 300;
+            trees.add(new Entity(staticModel, new Vector3f(x, 0, z), 0, 0, 0, 10));
         }
 
         Entity entity = new Entity(staticModel, new Vector3f(0, -0.7f, -0.45f), 0, 0, 0, 1);
         Light light = new Light(new Vector3f(100, 100, 0), new Vector3f(1, 1, 1));
 
-        Terrain terrain = new Terrain(0, 0, loader, new ModelTexture(loader.loadTexture("grass")));
-        Terrain terrain2 = new Terrain(1, 0, loader, new ModelTexture(loader.loadTexture("grass")));
+        Terrain terrain = new Terrain(0, 0, loader, texturePack, blendMap);
+        Terrain terrain2 = new Terrain(-1, 0, loader, texturePack, blendMap);
 
         Camera camera = new Camera();
 
