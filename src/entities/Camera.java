@@ -7,8 +7,8 @@ import java.lang.Math;
 
 public class Camera {
     private Vector3f position = new Vector3f(0, 2, 0);
-    private float pitch; // up, down
-    private float yaw = 135; // left, right along Y axis
+    private float pitch = 35; // up, down
+    private float yaw = 0; // left, right along Y axis
     private float roll; // tilt along the Z axis
 
     private Player player;

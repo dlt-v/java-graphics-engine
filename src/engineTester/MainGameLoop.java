@@ -38,7 +38,6 @@ public class MainGameLoop {
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
 
         Terrain terrain = new Terrain(0, 0, loader, texturePack, blendMap, "heightMap");
-        Terrain terrain2 = new Terrain(-1, 0, loader, texturePack, blendMap, "heightMap");
 
         // TREE LOADING
 
@@ -55,7 +54,8 @@ public class MainGameLoop {
         for (int i = 0; i < 200; i++) { // Tree generation
             float x = random.nextFloat() * 300;
             float z = random.nextFloat() * 300;
-            trees.add(new Entity(staticModel, new Vector3f(x, 0, z), 0, 0, 0, 10));
+            float y = terrain.getTerrainVertexHeight(x, z);
+            trees.add(new Entity(staticModel, new Vector3f(x, y, z), 0, 0, 0, 10));
         }
 
         // PLAYER
@@ -85,11 +85,10 @@ public class MainGameLoop {
         while(!Display.isCloseRequested()) {
             //entity.increaseRotation(0, 1, 0);
             camera.move();
-            player.move();
+            player.move(terrain);
             renderer.processEntity(player);
 
             renderer.processTerrain(terrain);
-            renderer.processTerrain(terrain2);
 
             for (Entity tree : trees) {
                 renderer.processEntity(tree);
