@@ -4,12 +4,16 @@ public class ModelTexture {
     private int textureId;
 
     private float shineDamper = .3f;
-    private float reflectivity = 0;
+    private float reflectivity = 0.1f;
 
     private boolean hasTransparency = false;
     private boolean useFakeLighting = false;
 
     private int numberOfRows = 1;
+
+    public ModelTexture(int id) {
+        this.textureId = id;
+    }
 
     public int getNumberOfRows() {
         return numberOfRows;
@@ -51,11 +55,6 @@ public class ModelTexture {
         this.reflectivity = reflectivity;
     }
 
-
-
-    public ModelTexture(int id) {
-        this.textureId = id;
-    }
     public int getId() {
         return this.textureId;
     }

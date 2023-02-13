@@ -85,7 +85,13 @@ public class MainGameLoop {
 
 
         //Entity entity = new Entity(staticModel, new Vector3f(0, -0.7f, -0.45f), 0, 0, 0, 1);
-        Light light = new Light(new Vector3f(100, 100, 0), new Vector3f(1, 1, 1));
+
+        // Lights
+        List<Light> lights = new ArrayList<Light>();
+        Light light = new Light(new Vector3f(100, 100, 0), new Vector3f(1, 1, 3));
+        lights.add(light);
+//        Light light1 = new Light(new Vector3f(-100, 100, 0), new Vector3f(1, 0, 0));
+//        lights.add(light1);
 
 
         Camera camera = new Camera(player);
@@ -104,7 +110,7 @@ public class MainGameLoop {
                 renderer.processEntity(tree);
             }
 
-            renderer.render(light, camera);
+            renderer.render(lights, camera);
             guiRenderer.render(guis);
 
             DisplayManager.updateDisplay();

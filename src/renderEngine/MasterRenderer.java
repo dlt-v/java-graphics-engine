@@ -52,11 +52,11 @@ public class MasterRenderer {
     }
 
 
-    public void render(Light sun, Camera camera) {
+    public void render(List<Light> lights, Camera camera) {
         prepare();
         shader.start();
         shader.loadSkyColor(RED, GREEN, BLUE);
-        shader.loadLight(sun);
+        shader.loadLights(lights);
         shader.loadViewMatrix(camera);
 
         renderer.render(entities);
@@ -65,7 +65,7 @@ public class MasterRenderer {
         terrainShader.start();
         terrainShader.loadSkyColor(RED, GREEN, BLUE);
 
-        terrainShader.loadLight(sun);
+        terrainShader.loadLight(lights.get(0));
         terrainShader.loadViewMatrix(camera);
         terrainRenderer.render(terrains);
         terrainShader.stop();
@@ -89,6 +89,7 @@ public class MasterRenderer {
             entities.put(entityModel, newBatch);
         }
     }
+
     public void prepare() {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
@@ -114,7 +115,7 @@ public class MasterRenderer {
         projectionMatrix.m11 = y_scale;
         projectionMatrix.m22 = -((FAR_PLANE + NEAR_PLANE) / frustum_length);
         projectionMatrix.m23 = -1;
-        projectionMatrix.m32 = - ((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
+        projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
         projectionMatrix.m33 = 0;
     }
 }
