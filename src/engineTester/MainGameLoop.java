@@ -4,13 +4,14 @@ import entities.Camera;
 import entities.Entity;
 import entities.Light;
 import entities.Player;
+import models.RawModel;
 import models.TexturedModel;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import renderEngine.*;
-import models.RawModel;
-import shaders.StaticShader;
 import terrains.Terrain;
+import textures.GuiTexture;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
@@ -66,6 +67,16 @@ public class MainGameLoop {
 
         Player player = new Player(playerTexturedModel, new Vector3f(1, 1, 0), 0, 0, 0, 20);
 
+        // Graphic User Interface
+
+        List<GuiTexture> guis = new ArrayList<>();
+        GuiTexture gui = new GuiTexture(
+                loader.loadTexture("AndreasGUI"),
+                new Vector2f(0, 0),
+                new Vector2f(1, 1));
+        guis.add(gui);
+
+        GuiRenderer guiRenderer = new GuiRenderer(loader);
 
         //TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("white")));
 
@@ -77,12 +88,11 @@ public class MainGameLoop {
         Light light = new Light(new Vector3f(100, 100, 0), new Vector3f(1, 1, 1));
 
 
-
         Camera camera = new Camera(player);
 
         MasterRenderer renderer = new MasterRenderer();
 
-        while(!Display.isCloseRequested()) {
+        while (!Display.isCloseRequested()) {
             //entity.increaseRotation(0, 1, 0);
             camera.move();
             player.move(terrain);
@@ -95,10 +105,11 @@ public class MainGameLoop {
             }
 
             renderer.render(light, camera);
+            guiRenderer.render(guis);
 
             DisplayManager.updateDisplay();
         }
-
+        guiRenderer.cleanUp();
         renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();

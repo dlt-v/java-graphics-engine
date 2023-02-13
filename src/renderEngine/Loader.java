@@ -19,7 +19,7 @@ public class Loader {
     private List<Integer> vbos = new ArrayList<Integer>();
     private List<Integer> textures = new ArrayList<Integer>();
 
-    public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals,  int[] indices) {
+    public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices) {
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
         // Store geometry vertices data into the VAO on ID 0.
@@ -30,6 +30,13 @@ public class Loader {
         unbindVAO();
 
         return new RawModel(vaoID, indices.length);
+    }
+
+    public RawModel loadToVAO(float[] positions) {
+        int vaoID = createVAO();
+        this.storeDataInAttributeList(0, 2, positions);
+        unbindVAO();
+        return new RawModel(vaoID, positions.length / 2);
     }
 
     public int loadTexture(String fileName) throws IOException {
