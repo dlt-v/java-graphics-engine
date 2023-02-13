@@ -37,8 +37,8 @@ public class MainGameLoop {
         TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
 
-        Terrain terrain = new Terrain(0, 0, loader, texturePack, blendMap);
-        Terrain terrain2 = new Terrain(-1, 0, loader, texturePack, blendMap);
+        Terrain terrain = new Terrain(0, 0, loader, texturePack, blendMap, "heightMap");
+        Terrain terrain2 = new Terrain(-1, 0, loader, texturePack, blendMap, "heightMap");
 
         // TREE LOADING
 
