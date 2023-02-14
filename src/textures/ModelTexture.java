@@ -4,7 +4,7 @@ public class ModelTexture {
     private int textureId;
 
     private float shineDamper = .3f;
-    private float reflectivity = 0.1f;
+    private float reflectivity = 0f;
 
     private boolean hasTransparency = false;
     private boolean useFakeLighting = false;
