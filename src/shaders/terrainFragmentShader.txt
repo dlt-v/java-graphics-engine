@@ -13,6 +13,8 @@ uniform sampler2D rTexture;
 uniform sampler2D gTexture;
 uniform sampler2D bTexture;
 uniform sampler2D blendMap;
+uniform vec3 attenuation[4];
+
 
 
 uniform vec3 lightColour;
