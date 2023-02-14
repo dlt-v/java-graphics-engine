@@ -25,6 +25,7 @@ public class MasterRenderer {
     private static final float GREEN = 0.6f;
     private static final float BLUE = 0.7f;
 
+
     private Matrix4f projectionMatrix;
 
     private StaticShader shader = new StaticShader();
@@ -54,6 +55,9 @@ public class MasterRenderer {
         GL11.glDisable(GL11.GL_CULL_FACE); // Backface fulling.
     }
 
+    public Matrix4f getProjectionMatrix() {
+        return projectionMatrix;
+    }
 
     public void render(List<Light> lights, Camera camera) {
         prepare();
@@ -72,7 +76,7 @@ public class MasterRenderer {
         terrainShader.loadViewMatrix(camera);
         terrainRenderer.render(terrains);
         terrainShader.stop();
-        skyboxRenderer.render(camera);
+        skyboxRenderer.render(camera, RED, GREEN, BLUE);
         terrains.clear();
         entities.clear(); // Important, leave it as is!
     }

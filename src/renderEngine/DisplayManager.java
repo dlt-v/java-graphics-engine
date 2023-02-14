@@ -52,4 +52,12 @@ public class DisplayManager {
     public static float getFrameTimeSeconds() {
         return delta;
     }
+
+    public static int getWidth() {
+        return WIDTH;
+    }
+
+    public static int getHeight() {
+        return HEIGHT;
+    }
 }

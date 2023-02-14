@@ -15,6 +15,7 @@ import textures.GuiTexture;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
+import toolbox.MousePicker;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,6 +79,7 @@ public class MainGameLoop {
 
         GuiRenderer guiRenderer = new GuiRenderer(loader);
 
+
         //TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("white")));
 
 //        staticModel.getTexture().setHasTransparency(true);
@@ -105,14 +107,19 @@ public class MainGameLoop {
         Camera camera = new Camera(player);
 
         MasterRenderer renderer = new MasterRenderer(loader);
+        MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), terrain);
 
         while (!Display.isCloseRequested()) {
             //entity.increaseRotation(0, 1, 0);
             camera.move();
             player.move(terrain);
+            picker.update();
+            Vector3f terrainPoint = picker.getCurrentTerrainPoint();
+            if (terrainPoint != null) {
+                trees.get(0).setPosition(terrainPoint);
+            }
             renderer.processEntity(player);
             renderer.processTerrain(terrain);
-
             for (Entity tree : trees) {
                 renderer.processEntity(tree);
             }
