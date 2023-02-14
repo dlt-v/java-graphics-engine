@@ -104,7 +104,7 @@ public class MainGameLoop {
 
         Camera camera = new Camera(player);
 
-        MasterRenderer renderer = new MasterRenderer();
+        MasterRenderer renderer = new MasterRenderer(loader);
 
         while (!Display.isCloseRequested()) {
             //entity.increaseRotation(0, 1, 0);
